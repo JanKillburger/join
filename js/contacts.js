@@ -125,7 +125,7 @@ function openContact(i) {
     if (loaded == 'desktop') { markContact(i) };
     let contact = contactList[i];
     let stage = document.getElementById('contacts_stage');
-    stage.innerHTML = renderContactDisplayFormHtml(contact);
+    stage.innerHTML = renderContactDisplayFormHtml(contact, i);
     let bigStage = document.getElementById('contacts_Display_big');
     if (loaded == 'mobile') {
         showArrow(bigStage);
@@ -140,18 +140,18 @@ function openContact(i) {
  * @param {object} contact - Contact to be displayed.
  * @returns Html code to render
  */
-function renderContactDisplayFormHtml(contact) {
+function renderContactDisplayFormHtml(contact, index) {
     return /*html*/`
     <span class="Stage_head d-flex align-items-center">
         <div id="initial_ball_big" class="big_ball d-flex" style="background-color: ${contact.color}">${contact.initials}</div>
         <div id="stage_head_right">
             <div id="contact_name">${contact.name}</div>
             <div id="contacts_stage_workBtn_div"  class=" d-flex">
-                <a href="#" onclick="startEditProcess(${i})" id="edit_contact_btn" class="Contact_stage_btn">
+                <a href="#" onclick="startEditProcess(${index})" id="edit_contact_btn" class="Contact_stage_btn">
                     <img src="assets/img/contacts_editContact_icon.png" alt="">
                             Edit
                 </a>
-                 <a href="#" onclick="startDeleteProcess(${i})" id="delete_contact_btn" class="Contact_stage_btn">
+                 <a href="#" onclick="startDeleteProcess(${index})" id="delete_contact_btn" class="Contact_stage_btn">
                     <img src="assets/img/contacts_deleteContacts_icon.png" alt="">
                             Delete
                 </a>
