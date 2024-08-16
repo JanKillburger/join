@@ -345,6 +345,7 @@ input {
   }
 
   .columns {
+    height: 100%;
     width: auto;
     display: flex;
     flex-direction: column;
