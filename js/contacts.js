@@ -113,7 +113,7 @@ function startAddContact() {
  */
 function showWorkDiv() {
     let workDiv = document.getElementById('overProcess_div');
-    // workDiv.style.display = 'flex';
+    workDiv.style.display = 'flex';
     workDiv.classList.add('active');
 }
 
@@ -383,7 +383,7 @@ function closeContactProcess(wichDiv, wichshader) {
     deactivateShader(wichshader)
     let workDiv = document.getElementById(wichDiv);
     workDiv.classList.remove('active');
-    // setTimeout(() => workDiv.style.display = 'none', 1000);
+    if (wichDiv === "delete_question") workDiv.style.display = 'none';
 }
 
 /**
