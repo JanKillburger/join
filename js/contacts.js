@@ -432,9 +432,9 @@ async function createContact() {
  * Counts ID's in backend, and returns one for the new contact.
  */
 async function getContactID() {
-    let id = await getItemFromBackend('contactIDcounter');
+    let id = getItemFromBackend('contactIDcounter');
     let newID = Number(id) + 1;
-    await setItemInBackend('contactIDcounter', newID);
+    setItemInBackend('contactIDcounter', newID);
     return newID;
 }
 

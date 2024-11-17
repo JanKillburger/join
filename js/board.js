@@ -7,7 +7,7 @@ let task;
  * Initializes functions of the Board.
  */
 async function initBoardPage() {
-  await getDataFromBackend();
+  getDataFromBackend();
   renderAllContainersHTML();
 }
 

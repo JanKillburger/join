@@ -250,7 +250,7 @@ function getDate() {
 function getStatus() {
   let result;
   selectedTask !== null
-    ? (result = selectedTask.status)
+    ? (result = selectedTask.status) || 'todo'
     : (result = taskDestinationStatus);
   return result;
 }

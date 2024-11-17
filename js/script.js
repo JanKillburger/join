@@ -58,9 +58,9 @@ function verifyUserStatus() {
  * Fills 3 important global variables with much used Data
  */
 async function getDataFromBackend() {
-  taskList = await getItemFromBackend("taskList");
-  userList = await getItemFromBackend("userList");
-  contactList = await getItemFromBackend("contactList");
+  taskList = getItemFromBackend("taskList");
+  userList = getItemFromBackend("userList");
+  contactList = getItemFromBackend("contactList");
 }
 
 /**
@@ -331,10 +331,11 @@ function backToOrigin() {
  */
 async function setItemInBackend(key, value) {
   const payload = { key, value, token: STORAGE_TOKEN };
-  return fetch(STORAGE_URL, {
-    method: "POST",
-    body: JSON.stringify(payload),
-  }).then((res) => res.json());
+  localStorage.setItem(key, value);
+  // return fetch(STORAGE_URL, {
+  //   method: "POST",
+  //   body: JSON.stringify(payload),
+  // }).then((res) => res.json());
 }
 
 /**
@@ -342,11 +343,28 @@ async function setItemInBackend(key, value) {
  * @param {string} key - name of the variable, that was saved in backend.
  * @returns
  */
-async function getItemFromBackend(key) {
-  const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
-  let response = await fetch(url).then((res) => res.json());
-  let result = response.data.value;
-  return JSON.parse(result);
+function getItemFromBackend(key) {
+  // const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
+  // let response = await fetch(url).then((res) => res.json());
+  // let result = response.data.value;
+  let result = localStorage.getItem(key);
+  if (!result) {
+    switch (key) {
+      case "taskList":
+        return [{ "title": "Test the website", "status": "todo", "description": "", "assignedTo": [{ "id": 1, "startingLetter": "J", "name": "John Doe", "e_mail": "jdoe@mail.com", "phone": "123456", "initials": "JD", "color": "#1FD7C1" }], "priority": "medium", "dueDate": "22.11.2024", "category": "Technical Task", "subtasks": [], "id": 1 }, { "title": "Review latest and greatest framework", "description": "Should have gentle learning curve", "assignedTo": [{ "id": 2, "startingLetter": "T", "name": "Tim Giuliani", "e_mail": "tg@mail.com", "phone": "48392020384", "initials": "TG", "color": "#FFBB2B" }], "priority": "urgent", "dueDate": "18.11.2024", "category": "Technical Task", "subtasks": [], "status": "todo", "id": 2 }, { "title": "Complete final project review for new website", "description": "Very urgent for customer", "assignedTo": [{ "id": 1, "startingLetter": "J", "name": "John Doe", "e_mail": "jdoe@mail.com", "phone": "123456", "initials": "JD", "color": "#1FD7C1" }], "priority": "low", "dueDate": "17.11.2024", "category": "Technical Task", "subtasks": [], "status": "inprogress", "id": 3 }]
+      case "contactList":
+        return [{"id":1,"startingLetter":"J","name":"John Doe","e_mail":"jdoe@mail.com","phone":"123456","initials":"JD","color":"#1FD7C1"},{"id":2,"startingLetter":"T","name":"Tim Giuliani","e_mail":"tg@mail.com","phone":"48392020384","initials":"TG","color":"#FFBB2B"}]
+      case "contactIDcounter":
+        return 2;
+      case "TaskId":
+        return 3     
+      }
+      
+
+  }
+  return JSON.parse(result) || [
+
+  ];
 }
 
 /**
